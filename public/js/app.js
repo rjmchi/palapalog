@@ -1924,21 +1924,82 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      comments: []
+      comments: [],
+      comment: {
+        id: '',
+        comment: '',
+        initials: ''
+      }
     };
   },
   methods: {
-    fetchComments: function fetchComments() {
+    addComment: function addComment() {
       var _this = this;
+
+      if (this.comment.comment == '') {
+        alert('Comment cannot be blank');
+        return;
+      }
+
+      if (this.comment.initials == '') {
+        alert('Initials cannot be blank');
+        return;
+      }
+
+      fetch('api/comment', {
+        method: 'post',
+        body: JSON.stringify(this.comment),
+        headers: {
+          'content-type': 'application/json'
+        }
+      }).then(function (res) {
+        return res.json;
+      }).then(function (data) {
+        _this.comment.comment = '';
+        _this.comment.initials = '';
+
+        _this.fetchComments();
+      })["catch"](function (err) {
+        return console.log('error');
+      });
+    },
+    markFixed: function markFixed(id, fixed) {
+      var _this2 = this;
+
+      fetch('api/comment/' + id, {
+        method: "put",
+        body: JSON.stringify({
+          "fixed": true
+        }),
+        headers: {
+          'content-type': 'application/json'
+        }
+      }).then(function (res) {
+        return res.json;
+      }).then(function () {
+        _this2.fetchComments();
+      })["catch"](function (err) {
+        return console.log('ererror2r');
+      });
+    },
+    fetchComments: function fetchComments() {
+      var _this3 = this;
 
       fetch('api/comments').then(function (res) {
         return res.json();
       }).then(function (res) {
-        _this.comments = res;
-        console.log(res);
+        _this3.comments = res;
       });
     }
   },
@@ -6391,7 +6452,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "h1[data-v-d6b6866e] {\n  color: red;\n}", ""]);
+exports.push([module.i, "h1[data-v-d6b6866e] {\n  color: purple;\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\nform[data-v-d6b6866e] {\n  display: flex;\n  height: 150px;\n  justify-content: space-between;\n  flex-wrap: wrap;\n  height: 180px;\n}\n.comment[data-v-d6b6866e] {\n  flex-grow: 4;\n}\n.comment textarea[data-v-d6b6866e] {\n  width: 95%;\n  height: 100px;\n}\n.initials[data-v-d6b6866e] {\n  flex-basis: 25px;\n}\n.button[data-v-d6b6866e] {\n  flex-basis: 100%;\n}\ntable[data-v-d6b6866e] {\n  margin-top: 25px;\n}\n.fixed[data-v-d6b6866e] {\n  text-decoration: line-through;\n}", ""]);
 
 // exports
 
@@ -38186,23 +38247,117 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("h1", [_vm._v("Comments")]),
+  return _c("div", { staticClass: "container" }, [
+    _c("h1", [_vm._v("Los Palmares Palapa Menu Beta Test Comments")]),
+    _vm._v(" "),
+    _c(
+      "form",
+      {
+        attrs: { method: "post" },
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.addComment($event)
+          }
+        }
+      },
+      [
+        _c("div", { staticClass: "comment" }, [
+          _c("textarea", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.comment.comment,
+                expression: "comment.comment"
+              }
+            ],
+            attrs: { name: "comment", placeholder: "Your Comment" },
+            domProps: { value: _vm.comment.comment },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.comment, "comment", $event.target.value)
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "initials" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.comment.initials,
+                expression: "comment.initials"
+              }
+            ],
+            attrs: {
+              type: "text",
+              name: "initials",
+              placeholder: "Your Initials"
+            },
+            domProps: { value: _vm.comment.initials },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.comment, "initials", $event.target.value)
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _vm._m(0)
+      ]
+    ),
     _vm._v(" "),
     _c(
       "table",
-      [
-        _vm._m(0),
-        _vm._v(" "),
-        _vm._l(_vm.comments, function(comment, idx) {
-          return _c("tr", { key: idx }, [
-            _c("td", [_vm._v(_vm._s(comment.comment))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(comment.initials))])
+      _vm._l(_vm.comments, function(comment, idx) {
+        return _c("tr", { key: idx, attrs: { width: "90%" } }, [
+          _c(
+            "td",
+            {
+              class: { fixed: comment.fixed == true },
+              attrs: { width: "75%" }
+            },
+            [_vm._v(_vm._s(comment.comment))]
+          ),
+          _vm._v(" "),
+          _c("td", { attrs: { width: "10%" } }, [
+            _vm._v(_vm._s(comment.initials))
+          ]),
+          _vm._v(" "),
+          _c("td", [
+            _c(
+              "button",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: comment.fixed == false,
+                    expression: "comment.fixed==false"
+                  }
+                ],
+                staticClass: "btn btn-info",
+                on: {
+                  click: function($event) {
+                    return _vm.markFixed(comment.id)
+                  }
+                }
+              },
+              [_vm._v("Fixed")]
+            )
           ])
-        })
-      ],
-      2
+        ])
+      }),
+      0
     )
   ])
 }
@@ -38211,10 +38366,12 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("th", [_vm._v("Comment")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Initials")])
+    return _c("div", { staticClass: "button" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-success", attrs: { type: "submit" } },
+        [_vm._v("Add Comment")]
+      )
     ])
   }
 ]
