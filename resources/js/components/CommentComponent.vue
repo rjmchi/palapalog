@@ -58,7 +58,7 @@ export default {
             this.comment.initials = '';
             this.fetchComments();
         })
-        .catch(err=> console.log('error'));
+        .catch(err=> console.log(err));
       }, 
       markFixed(id, fixed) {
           fetch('api/comment/'+id, {
@@ -72,7 +72,7 @@ export default {
             .then(()=> {
                 this.fetchComments();
               })
-              .catch(err=> console.log('ererror2r'));
+              .catch(err=> console.log(err));
       },
       fetchComments() {
           fetch('api/comments')

@@ -1971,7 +1971,7 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.fetchComments();
       })["catch"](function (err) {
-        return console.log('error');
+        return console.log(err);
       });
     },
     markFixed: function markFixed(id, fixed) {
@@ -1990,7 +1990,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function () {
         _this2.fetchComments();
       })["catch"](function (err) {
-        return console.log('ererror2r');
+        return console.log(err);
       });
     },
     fetchComments: function fetchComments() {
