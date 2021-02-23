@@ -14,7 +14,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        return Comment::all();
+        return Comment::orderBy('fixed')->latest()->get();
     }
 
     /**
