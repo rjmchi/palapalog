@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Comment;
 use Illuminate\Http\Request;
+use App\Mail\NotificationMail;
 
 class CommentController extends Controller
 {
@@ -39,6 +40,8 @@ class CommentController extends Controller
         $c->comment = $request->comment;
         $c->initials = $request->initials;
         $c->save();
+
+        \Mail::to('robert@rjmchicago.com')->send(new NotificationMail($c));
         return $c;
     }
 
