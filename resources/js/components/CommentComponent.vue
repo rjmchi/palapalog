@@ -12,13 +12,11 @@
             <button type="submit" class="btn btn-success">Add Comment</button>
         </div>
     </form>
-      <table>
-          <tr width="90%" v-for="(comment, idx) in comments" v-bind:key='idx'>
-              <td v-bind:class="{ fixed: comment.fixed==true }" width="75%">{{comment.comment}}</td>
-              <td width="10%">{{comment.initials}}</td>
-              <td><button v-show='comment.fixed==false' @click="markFixed(comment.id)" class="btn btn-info">Fixed</button></td>
-          </tr>
-          </table>
+    <div class="comments" v-for="(comment, idx) in comments" v-bind:key='idx'>
+        <span class="comment" v-bind:class="{ fixed: comment.fixed==true }">{{comment.comment}}</span>
+        <span class="initials">{{comment.initials}}</span>
+        <span class="action"><button v-show='comment.fixed==false' @click="markFixed(comment.id)" class="btn btn-info">Fixed</button></span>
+    </div>
   </div>
 </template>
 
@@ -44,7 +42,7 @@ export default {
           if (this.comment.initials == '') {
               alert('Initials cannot be blank');
               return;
-          }          
+          }
         fetch('api/comment', {
             method:'post',
             body: JSON.stringify(this.comment),
@@ -59,7 +57,7 @@ export default {
             this.fetchComments();
         })
         .catch(err=> console.log(err));
-      }, 
+      },
       markFixed(id, fixed) {
           fetch('api/comment/'+id, {
               method: "put",
@@ -88,9 +86,16 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+    .container {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .comments {
+        display:flex;
+        justify-content: flex-start;
+    }
     h1 {
-        color:purple;
+        color:#083a58;
         margin-top:10px;
         margin-bottom:10px;
         }
@@ -103,21 +108,40 @@ export default {
     }
     .comment {
         flex-grow:4;
-        textarea {
-            width:95%;
-            height:100px;
-        };
+        flex-basis:75%;
     }
+    .comment textarea {
+        width:95%;
+        height:100px;
+    };
     .initials {
-        flex-basis:25px;
+        flex-basis:15%;
     }
     .button {
         flex-basis:100%;
     }
-    table {
-        margin-top:25px;
+    .action {
+        flex-basis:15%;
+        margin-left:25px;
     }
     .fixed {
         text-decoration: line-through;
     }
+
+.btn {
+	background: #083a58;
+    background-image: linear-gradient(to bottom, #083a58, #0d4c74);
+    border-radius: 5px;
+    /* box-shadow: 1px 1px 6px #666666; */
+    color: #fafafa;
+    font-size: 15px;
+    padding: 4px 15px;
+    text-decoration: none;
+    border-color:#fafafa;
+}
+.btn:hover {
+  background: #2079b0;
+  background-image: linear-gradient(to bottom, #0d4c74, #083a58);
+  text-decoration: none;
+}
 </style>

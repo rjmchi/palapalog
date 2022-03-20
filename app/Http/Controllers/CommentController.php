@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Comment;
+use App\Models\Comment;
 use Illuminate\Http\Request;
-use App\Mail\NotificationMail;
 
 class CommentController extends Controller
 {
@@ -16,16 +15,6 @@ class CommentController extends Controller
     public function index()
     {
         return Comment::orderBy('fixed')->latest()->get();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -41,14 +30,13 @@ class CommentController extends Controller
         $c->initials = $request->initials;
         $c->save();
 
-        \Mail::to('robert@rjmchicago.com')->send(new NotificationMail($c));
         return $c;
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Comment  $comment
+     * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
     public function show(Comment $comment)
@@ -57,21 +45,10 @@ class CommentController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Comment  $comment
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Comment $comment)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Comment  $comment
+     * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Comment $comment)
@@ -86,7 +63,7 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Comment  $comment
+     * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
     public function destroy(Comment $comment)
