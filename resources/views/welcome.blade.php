@@ -10,6 +10,7 @@
 
         <title>Palapa Menu Comments</title>
 
+    <link href="{{ asset('css/app.css', true) }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     </head>
@@ -19,6 +20,7 @@
                 <comment-component></comment-component>
             </div>
         </div>
+    <script src="{{asset('js/app.js',true)}}"></script>
     <script src="{{asset('js/app.js')}}"></script>
     </body>
 </html>
