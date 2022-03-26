@@ -93,6 +93,7 @@ export default {
     .comments {
         display:flex;
         justify-content: flex-start;
+        margin-left:10px;
     }
     h1 {
         color:#083a58;
@@ -113,9 +114,9 @@ export default {
     .comment textarea {
         width:95%;
         height:100px;
-    };
+    }
     .initials {
-        flex-basis:15%;
+        flex-basis:10%;
     }
     .button {
         flex-basis:100%;
