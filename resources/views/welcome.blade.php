@@ -10,7 +10,7 @@
         @csrf
 
         <div class="flex justify-between mx-2">
-            <div class="comment w-10/12 ml-2" >
+            <div class="comment w-10/12 ml-2 mr-1" >
                 <textarea name="comment" placeholder="Your Comment" class="w-11/12 mx-2"></textarea>
             </div>
             <div class="initials w-2/12 mr-2">
