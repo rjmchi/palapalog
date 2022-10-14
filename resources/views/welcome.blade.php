@@ -1,26 +1,40 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{csrf_token()}}">
-	<meta name="robots" content="noindex, nofollow">
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-sky-900 leading-tight">
+            Los Palmares Palapa Menu Beta Test Comments
+        </h2>
+    </x-slot>
 
-        <script> window.laravel = {csfrToken:'{{csrf_token()}}'}</script>
+    <div class="py-12">
+    <form action="{{route('comment.store')}}" method="post">
+        @csrf
 
-        <title>Palapa Menu Comments</title>
-
-    <link href="{{ asset('css/app.css', true) }}" rel="stylesheet">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
-    </head>
-    <body>
-        <div id="app">
-            <div class="container">
-                <comment-component></comment-component>
+        <div class="flex justify-between mx-2">
+            <div class="comment w-10/12 ml-2" >
+                <textarea name="comment" placeholder="Your Comment" class="w-11/12 mx-2"></textarea>
+            </div>
+            <div class="initials w-2/12 mr-2">
+                <input type="text" name="initials" placeholder="Your Initials" class="w-11/12 mx-2">
             </div>
         </div>
-    <script src="{{asset('js/app.js',true)}}"></script>
-    <script src="{{asset('js/app.js')}}"></script>
-    </body>
-</html>
+        <div class="button">
+            <button type="submit" class="btn btn-success">Add Comment</button>
+        </div>
+
+    </form>
+
+    @foreach ($comments as $comment)
+        <div class="comments flex justify-between mx-4">
+            <span {{$comment->fixed ? 'class=line-through':''}}>{{$comment->comment}}</span>
+            <span class="initials">{{$comment->initials}}</span>
+            <form action="{{route('comment.update', $comment->id)}}" method="post">
+                @method('PATCH')
+                @csrf
+                <button class="btn btn-primary">Fixed</button>
+                <input type="hidden" name="fixed" value="1">
+            </form>
+        </div>
+    @endforeach
+  </div>
+    </div>
+</x-app-layout>

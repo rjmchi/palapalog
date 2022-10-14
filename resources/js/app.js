@@ -1,8 +1,7 @@
-require('./bootstrap');
-import {createApp} from 'vue'
-	import CommentComponent from './components/CommentComponent'
-	createApp({
-		components: {
-			CommentComponent,
-		}
-	}).mount('#app')
+import './bootstrap';
+
+import Alpine from 'alpinejs';
+
+window.Alpine = Alpine;
+
+Alpine.start();

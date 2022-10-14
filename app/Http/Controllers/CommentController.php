@@ -18,6 +18,16 @@ class CommentController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -30,7 +40,7 @@ class CommentController extends Controller
         $c->initials = $request->initials;
         $c->save();
 
-        return $c;
+        return redirect(route('home'));
     }
 
     /**
@@ -40,6 +50,17 @@ class CommentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Comment $comment)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Comment  $comment
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Comment $comment)
     {
         //
     }
@@ -57,7 +78,7 @@ class CommentController extends Controller
             $comment->fixed = true;
             $comment->save();
         }
-        return $comment;
+        return redirect(route('home'));
     }
 
     /**

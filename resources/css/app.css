@@ -1,12 +1,16 @@
-* {
-    margin:0;
-    padding:0;
-    box-sizing: border-box;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-body {
-    margin:20px;
-    background-color: #f8fafc;
-    color:#000;
-    font-size:.9em;
+.btn {
+    @apply m-2 rounded-md border py-1 px-2 text-xs cursor-pointer tracking-wider border-neutral-400 shadow-md font-semibold
+}
+.btn-primary {
+    @apply  bg-primary-600 text-primary-100 hover:bg-primary-800
+}
+.btn-secondary {
+    @apply bg-secondary-500 text-secondary-900 hover:bg-secondary-600
+}
+.btn-danger {
+    @apply bg-danger-500 text-danger-100 hover:bg-danger-600
 }
