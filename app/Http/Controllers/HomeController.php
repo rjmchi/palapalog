@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public function index() {
-        $data['comments'] = Comment::orderBy('fixed')->latest()->get();
-        return view('welcome')->with($data);
+    
+        $comments = Comment::orderBy('fixed','asc')->latest()->get();
+        return view('welcome', ['comments'=>$comments]);
     }
 }

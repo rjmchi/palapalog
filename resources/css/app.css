@@ -1,16 +1,34 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-.btn {
-    @apply m-2 rounded-md border py-1 px-2 text-xs cursor-pointer tracking-wider border-neutral-400 shadow-md font-semibold
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
 }
-.btn-primary {
-    @apply  bg-primary-600 text-primary-100 hover:bg-primary-800
+
+@layer base {
+    button {
+        @apply m-2 rounded-md border py-2 px-3 text-sm cursor-pointer tracking-wider border-neutral-400 shadow-md font-semibold
+    }
+    input, textarea{
+        @apply border rounded border-neutral-300 p-2
+    }
+ 
 }
-.btn-secondary {
-    @apply bg-secondary-500 text-secondary-900 hover:bg-secondary-600
-}
-.btn-danger {
-    @apply bg-danger-500 text-danger-100 hover:bg-danger-600
+
+@layer components {
+
+    .btn-primary {
+        @apply  bg-teal-600 text-teal-100 hover:bg-teal-800
+    }
+    .btn-secondary {
+        @apply bg-indigo-500 text-indigo-50 hover:bg-indigo-600
+    }
+    .btn-danger {
+        @apply bg-red-500 text-red-100 hover:bg-red-600
+    }
 }
