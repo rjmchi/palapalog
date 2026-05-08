@@ -27,6 +27,7 @@
             <main>
                 {{ $slot }}
             </main>
+            <p>Laravel Version: {{ App::VERSION() }}</p>
         </div>
     </body>
 </html>
