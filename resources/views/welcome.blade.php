@@ -42,8 +42,9 @@
     <div class="m-4 border rounded-lg border-neutral-200 shadow p-2">
     @foreach ($comments as $comment)
         <div class="grid grid-cols-12 items-center shadow">
-            <span class="col-span-10 p-2 {{$comment->fixed ? 'line-through':''}}">{{$comment->comment}}</span>
+            <span class="col-span-9 p-2 {{$comment->fixed ? 'line-through':''}}">{{$comment->comment}}</span>
             <span class="p-2">{{$comment->initials}}</span>
+            <span class="col-span-2 text-center">
             @if(!$comment->fixed)
             <form action="{{route('comment.update', $comment->id)}}" method="post">
                 @method('PATCH')
@@ -59,6 +60,7 @@
                 <input type="hidden" name="fixed" value="0">
             </form>            
             @endif
+            </span>
         </div>
     @endforeach
     </div>
